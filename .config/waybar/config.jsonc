@@ -1,0 +1,210 @@
+// -*- mode: jsonc -*-
+{
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "wlr/taskbar",
+        "hyprland/window",
+    ],
+    "modules-center": [
+        "clock",
+        "image",
+        "custom/play",
+        "custom/previous",
+        "custom/next",
+    ],
+    "modules-right": [
+        // utilization
+        "network",
+        "cpu",
+        "memory",
+        "disk",
+        "custom/gpu",
+        "temperature#cpu",
+        "temperature#gpu",
+
+        // state
+        "keyboard-state",
+        "privacy",
+        "systemd-failed-units",
+
+        // control
+        "wireplumber",
+        "group/power",
+    ],
+
+    // Modules configuration
+    "clock": {
+        "actions": {
+            "on-click": "mode",
+            "on-click-middle": "shift_reset",
+            "on-scroll-down": "shift_down",
+            "on-scroll-up": "shift_up",
+        },
+        "calendar": {
+            "format": {
+                "months":   "<span color='#ffead3'><b>{}</b></span>",
+                "days":     "<span color='#ecc6d9'><b>{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today":    "<span color='#ff6699'><b><u>{}</u></b></span>"
+            },
+            "mode-mon-col": 3,
+        },
+        // I: hour (12-hour clock)
+        // M: minute
+        // S: second
+        // p: AM/PM
+        //
+        // a: abbreviated weekday
+        // b: abbreviated month
+        // e: day
+        // Y: year
+        "format": "{:%I:%M:%S %p  %a  %b %e %Y}",
+        "interval": 1,
+        "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "interval": 1,
+        "states": {
+            "critical": 90,
+            "warning": 80,
+        },
+    },
+    "image": {
+        "exec": "curl -s $(playerctl -p spotify metadata mpris:artUrl) --output /tmp/album.jpeg && echo -e /tmp/album.jpeg\necho $(playerctl -p spotify --format '{{title}} - {{artist}} - {{album}}' metadata)",
+        "interval": 10,
+        "on-click": "hyprctl dispatch focuswindow address:0x$(hyprctl clients | grep -B 9 'class: Spotify' | head -1 | cut -d ' ' -f 2)",
+        "size": 36,
+    },
+    "custom/gpu": {
+        "exec": "cat /sys/class/hwmon/hwmon0/device/gpu_busy_percent",
+        "format": "{}% ",
+        "interval": 1,
+        "tooltip": false,
+    },
+    "custom/logout": {
+       	"format": "",
+        "on-click": "hyprctl dispatch exit",
+        "tooltip-format": "logout",
+    },
+    "custom/next": {
+        "format": "",
+        "on-click": "playerctl -p spotify next",
+        "tooltip-format": "next",
+    },
+    "custom/play": {
+        "exec": "[[ \"$(playerctl -p spotify status)\" == \"Playing\" ]] && echo  || echo ",
+        "interval": 1,
+        "on-click": "playerctl -p spotify play-pause",
+        "tooltip-format": "play/pause",
+    },
+    "custom/power": {
+        "format": "",
+        "on-click": "poweroff",
+       	"tooltip-format": "shutdown",
+    },
+    "custom/previous": {
+        "format": "",
+        "on-click": "playerctl -p spotify previous",
+        "tooltip-format": "previous",
+    },
+    "custom/suspend": {
+       	"format": "",
+        "on-click": "systemctl suspend",
+        "tooltip-format": "suspend",
+    },
+    "custom/reboot": {
+       	"format": "",
+        "on-click": "reboot",
+        "tooltip-format": "reboot",
+    },
+    "disk": {
+        "format": "{percentage_used}% ",
+        "states": {
+            "critical": 95,
+            "warning": 90,
+        },
+        "tooltip-format": "{free} out of {total} available",
+    },
+    "group/power": {
+        "drawer": {
+            "transition-left-to-right": false,
+        },
+        "modules": [
+            "custom/power",
+
+            "custom/suspend",
+            "custom/logout",
+            "custom/reboot",
+        ],
+        "orientation": "inherit",
+    },
+    "hyprland/workspaces": {
+        "format": "{icon} {name}",
+        "format-icons": {
+            "active": "",
+            "default": "",
+            "urgent": "",
+        },
+        "show-special": true,
+    },
+    "keyboard-state": {
+        "capslock": true,
+        "format": {
+            "capslock": "{icon}",
+        },
+        "format-icons": {
+            "locked": "A",
+            "unlocked": "a",
+        },
+    },
+    "memory": {
+        "format": "{percentage}% ",
+        "states": {
+            "critical": 80,
+            "warning": 60,
+        },
+        "tooltip-format": "{avail:0.1f} GiB out of {total:0.1f} GiB available, {swapAvail} GiB swap available",
+    },
+    "network": {
+        "format": "{bandwidthUpBits} ⬆  {bandwidthDownBits} ⬇",
+        "format-disconnected": "",
+        "interval": 5,
+        "tooltip-format": "{ifname}: <span color='#ff6699'><b><u>{ipaddr}</u></b></span>/{cidr}  : {gwaddr}",
+    },
+    "privacy": {
+        "modules": [
+            {"type": "screenshare"},
+            {"type": "audio-out"},
+            {"type": "audio-in"},
+        ],
+    },
+    "systemd-failed-units": {
+        "format": "{nr_failed} ",
+        "format-ok": "",
+        "hide-on-ok": false,
+    },
+    "temperature#cpu": {
+        "critical-threshold": 95,
+        "format": "{temperatureC}°C ",
+        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+        "tooltip-format": "CPU : 95°C",
+    },
+    "temperature#gpu": {
+        "critical-threshold": 110,
+        "format": "{temperatureC}°C ",
+        "hwmon-path": "/sys/class/hwmon/hwmon0/temp2_input",
+        "tooltip-format": "GPU : 110°C",
+    },
+    "wireplumber": {
+        "format": "{volume} ",
+        "format-muted": " ",
+        "on-click": "wpctl set-mute $(wpctl status | grep '*' | grep -o -E '[[:digit:]]+' | head -1) toggle",
+    },
+    "wlr/taskbar": {
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "on-click-right": "fullscreen",
+    },
+}

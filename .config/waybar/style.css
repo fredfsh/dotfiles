@@ -1,0 +1,251 @@
+* {
+    border: none;
+    border-radius: 0;
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: Liberation Mono;
+    min-height: 20px;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+window#waybar {
+    background: transparent;
+}
+
+/* LEFT */
+
+#workspaces {
+    padding: 8px;
+    border-radius: 18px 0px 0px 18px;
+    transition: none;
+    background-color: #383c4a;
+}
+
+#workspaces button {
+    border-radius: 0px;
+    transition: none;
+    color: white;
+    background-color: transparent;
+    padding: 5px;
+    font-size: 18px;
+}
+
+#workspaces button.persistent {
+    color: white;
+    font-size: 12px;
+}
+
+#workspaces button:hover {
+    transition: none;
+    box-shadow: inherit;
+    text-shadow: inherit;
+    color: #383c4a;
+    background-color: #7c818c;
+}
+
+#workspaces button.focused {
+    color: white;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#taskbar button:hover {
+    transition: none;
+    box-shadow: inherit;
+    text-shadow: inherit;
+    color: #383c4a;
+    background-color: #7c818c;
+}
+
+#taskbar button.focused {
+    color: white;
+}
+
+#taskbar {
+    padding: 8px;
+    transition: none;
+    background-color: #383c4a;
+}
+
+#taskbar button {
+    transition: none;
+    background-color: transparent;
+    padding: 5px;
+    font-size: 18px;
+}
+
+#window {
+    padding: 8px;
+    margin-right: 8px;
+    border-radius: 0px 18px 18px 0px;
+    color: white;
+    transition: none;
+    background-color: #383c4a;
+}
+
+/* CENTER */
+
+#clock {
+    padding: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 18px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#image {
+    padding: 8px;
+    margin-left: 8px;
+    border-radius: 18px 0px 0px 18px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#custom-play, #custom-previous {
+    padding: 8px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#custom-next {
+    padding: 8px;
+    margin-right: 8px;
+    border-radius: 0px 18px 18px 0px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+/* RIGHT */
+
+/* utilization */
+#network {
+    padding: 8px;
+    border-radius: 18px 0px 0px 18px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#network.disconnected {
+    background-color: red;
+}
+
+#cpu, #memory, #disk, #custom-gpu {
+    padding: 8px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#cpu.warning, #memory.warning, #disk.warning {
+    color: black;
+    background-color: yellow;
+}
+
+#cpu.critical, #memory.critical, #disk.critical {
+    background-color: red;
+}
+
+#temperature {
+    padding: 8px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#temperature.gpu {
+    margin-right: 8px;
+    border-radius: 0px 18px 18px 0px;
+}
+
+#temperature.critical {
+    background-color: red;
+}
+
+/* state */
+#keyboard-state {
+    padding: 8px;
+    margin-left: 8px;
+    border-radius: 18px 0px 0px 18px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#privacy {
+    padding: 8px;
+    background-color: #383c4a;
+}
+
+#privacy-item {
+    padding: 8px;
+    color: white;
+    background-color: #383c4a;
+}
+
+#privacy-item.screenshare {
+    background-color: red;
+}
+
+#privacy-item.audio-in {
+    background-color: red;
+}
+
+#privacy-item.audio-out {
+    background-color: blue;
+}
+
+#systemd-failed-units {
+    padding: 8px;
+    margin-right: 8px;
+    border-radius: 0px 18px 18px 0px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#systemd-failed-units.degraded {
+    background-color: red;
+}
+
+/* control */
+#wireplumber {
+    padding: 8px;
+    margin-left: 8px;
+    border-radius: 18px 0px 0px 18px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#wireplumber.muted {
+    background-color: red;
+}
+
+#custom-suspend, #custom-logout, #custom-reboot {
+    padding: 8px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#custom-suspend {
+    padding-left: 24px;
+}
+
+#custom-power {
+    padding: 8px;
+    border-radius: 0px 18px 18px 0px;
+    transition: none;
+    color: red;
+    background-color: #383c4a;
+}
