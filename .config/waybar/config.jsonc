@@ -7,6 +7,7 @@
         "hyprland/window",
     ],
     "modules-center": [
+        "custom/weather",
         "clock",
         "image",
         "custom/play",
@@ -73,7 +74,7 @@
     },
     "image": {
         "exec": "curl -s $(playerctl -p spotify metadata mpris:artUrl) --output /tmp/album.jpeg && echo -e /tmp/album.jpeg\necho $(playerctl -p spotify --format '{{title}} - {{artist}} - {{album}}' metadata)",
-        "interval": 10,
+        "interval": 30,
         "on-click": "hyprctl dispatch focuswindow address:0x$(hyprctl clients | grep -B 9 'class: Spotify' | head -1 | cut -d ' ' -f 2)",
         "size": 36,
     },
@@ -109,15 +110,19 @@
         "on-click": "playerctl -p spotify previous",
         "tooltip-format": "previous",
     },
+    "custom/reboot": {
+        "format": "",
+        "on-click": "reboot",
+        "tooltip-format": "reboot",
+    },
     "custom/suspend": {
        	"format": "",
         "on-click": "systemctl suspend",
         "tooltip-format": "suspend",
     },
-    "custom/reboot": {
-       	"format": "",
-        "on-click": "reboot",
-        "tooltip-format": "reboot",
+    "custom/weather": {
+        "exec": "curl https://wttr.in/San+Carlos+California?format=1\ncurl https://wttr.in/San+Carlos+California?FQT | tr '\n' '\r'",
+        "interval": 60,
     },
     "disk": {
         "format": "{percentage_used}% ",

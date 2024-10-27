@@ -89,11 +89,19 @@ window#waybar {
 
 /* CENTER */
 
-#clock {
+#custom-weather {
     padding: 8px;
     margin-left: 8px;
+    border-radius: 18px 0px 0px 18px;
+    transition: none;
+    color: white;
+    background-color: #383c4a;
+}
+
+#clock {
+    padding: 8px;
     margin-right: 8px;
-    border-radius: 18px;
+    border-radius: 0px 18px 18px 0px;
     transition: none;
     color: white;
     background-color: #383c4a;
