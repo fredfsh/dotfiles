@@ -96,7 +96,7 @@
     },
     "custom/play": {
         "exec": "[[ \"$(playerctl -p spotify status)\" == \"Playing\" ]] && echo  || echo ",
-        "interval": 1,
+        "interval": 2,
         "on-click": "playerctl -p spotify play-pause",
         "tooltip-format": "play/pause",
     },
