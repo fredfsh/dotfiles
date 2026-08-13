@@ -121,7 +121,7 @@
         "tooltip-format": "suspend",
     },
     "custom/weather": {
-        "exec": "curl -s https://wttr.in/San+Carlos+California?view=v2 | grep Weather: | cut -d ' ' -f 2,6\ncurl -s https://wttr.in/San+Carlos+California?FQT | tr '\n' '\r'",
+        "exec": "curl -s https://wttr.in/San+Carlos+California?view=v2 | grep Weather: | cut -d ' ' -f 2,4 | sed $'s/\\033\\[0m//g'\ncurl -s https://wttr.in/San+Carlos+California?FQT | tr '\n' '\r'",
         "interval": 60,
     },
     "disk": {
